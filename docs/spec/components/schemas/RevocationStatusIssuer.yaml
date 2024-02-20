@@ -1,0 +1,10 @@
+type: object
+properties:
+  state:
+    type: string
+  rootOfRoots:
+    type: string
+  claimsTreeRoot:
+    type: string
+  revocationTreeRoot:
+    type: string

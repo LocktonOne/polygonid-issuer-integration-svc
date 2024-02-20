@@ -1,0 +1,12 @@
+type: object
+required:
+  - existence
+properties:
+  existence:
+    type: boolean
+  siblings:
+    type: array
+    items:
+      type: string
+  node_aux:
+    $ref: '#/components/schemas/RevocationStatusMTPNodeAux'

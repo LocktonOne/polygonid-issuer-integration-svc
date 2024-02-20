@@ -1,0 +1,6 @@
+type: object
+required:
+  - didMetadata
+properties:
+  didMetadata:
+    $ref: '#/components/schemas/DidMetadata'

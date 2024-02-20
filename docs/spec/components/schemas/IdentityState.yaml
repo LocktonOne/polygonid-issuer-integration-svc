@@ -1,0 +1,40 @@
+type: object
+required:
+  - stateID
+  - identifier
+  - status
+  - modifiedAt
+  - createdAt
+properties:
+  stateID:
+    type: integer
+    format: int64
+  identifier:
+    type: string
+    x-go-json-ignore: true
+  state:
+    type: string
+  rootOfRoots:
+    type: string
+  claimsTreeRoot:
+    type: string
+  revocationTreeRoot:
+    type: string
+  blockTimestamp:
+    type: integer
+    format: int
+  blockNumber:
+    type: integer
+    format: int
+  txID:
+    type: string
+  previousState:
+    type: string
+  status:
+    type: string
+  modifiedAt:
+    type: string
+    format: time.Time
+  createdAt:
+    type: string
+    format: time.Time

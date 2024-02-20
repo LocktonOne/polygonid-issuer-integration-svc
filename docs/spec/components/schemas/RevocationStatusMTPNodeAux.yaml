@@ -1,0 +1,6 @@
+type: object
+properties:
+  node_aux_key:
+    type: string
+  value:
+    type: string

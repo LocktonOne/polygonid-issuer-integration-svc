@@ -1,0 +1,16 @@
+allOf:
+  - $ref: '#/components/schemas/RevocationStatusKey'
+  - type: object
+    required:
+      - attributes
+    properties:
+      attributes:
+        type: object
+        required:
+          - issuer
+          - mtp
+        properties:
+          issuer:
+            $ref: '#/components/schemas/RevocationStatusIssuer'
+          mtp:
+            $ref: '#/components/schemas/RevocationStatusMTP'

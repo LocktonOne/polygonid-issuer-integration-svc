@@ -1,0 +1,22 @@
+type: object
+required:
+  - method
+  - blockchain
+  - network
+  - type
+properties:
+  method:
+    type: string
+    example: polygonid
+  blockchain:
+    type: string
+    example: polygon
+  network:
+    type: string
+    example: mumbai
+  type:
+    type: string
+    example: BJJ
+    enum:
+      - BJJ
+      - ETH

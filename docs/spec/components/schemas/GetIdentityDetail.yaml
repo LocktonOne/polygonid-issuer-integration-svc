@@ -1,0 +1,17 @@
+allOf:
+  - $ref: '#/components/schemas/IdentityKey'
+  - type: object
+    required:
+      - attributes
+    properties:
+      attributes:
+        type: object
+        required:
+          - state
+        properties:
+          state:
+            $ref: '#/components/schemas/IdentityState'
+          address:
+            type: string
+          balance:
+            type: string

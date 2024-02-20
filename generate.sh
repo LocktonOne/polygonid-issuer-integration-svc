@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-GENERATOR_IMAGE=registry.gitlab.com/tokend/openapi-go-generator:69f004b58152c83f007b593cc13e94b81d7200da
+GENERATOR_IMAGE=registry.gitlab.com/tokend/openapi-go-generator:b53edd077ab411b239d24a9d7a6cfdd574ec977c
 
 
-GENERATED="${GOPATH}/src/gitlab.com/tokene/polygonid-issuer-integration/resources"
-OPENAPI_DIR="${GOPATH}/src/gitlab.com/tokene/polygonid-issuer-integration/docs/web_deploy"
+GENERATED="/Users/a461/Documents/DL/tokenE/polygonid-issuer-integration/resources"
+OPENAPI_DIR="/Users/a461/Documents/DL/tokenE/polygonid-issuer-integration/docs/web_deploy/"
 PACKAGE_NAME=resources
 
 function printHelp {
@@ -51,7 +51,7 @@ function parseArgs {
 function generate {
     (cd docs && npm run build)
     docker run -v "${OPENAPI_DIR}":/openapi -v "${GENERATED}":/generated "${GENERATOR_IMAGE}" generate -pkg "${PACKAGE_NAME}" --raw-formats-as-types
-    goimports -w ${GENERATED}
+    # goimports -w ${GENERATED}
 }
 
 parseArgs "$@"

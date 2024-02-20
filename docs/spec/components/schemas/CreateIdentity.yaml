@@ -1,0 +1,16 @@
+allOf:
+  - $ref: '#/components/schemas/CreateIdentityKey'
+  - type: object
+    required:
+      - attributes
+    properties:
+      attributes:
+        type: object
+        required:
+          - state
+        properties:
+          state:
+            $ref: '#/components/schemas/IdentityState'
+          address:
+            type: string
+            x-omitempty: false

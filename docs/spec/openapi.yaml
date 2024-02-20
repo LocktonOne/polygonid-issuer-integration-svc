@@ -4,5 +4,5 @@ info:
   title: polygonid-integration-svc
   description: ''
 servers:
-  - url: 'https://api.demo.tokend.io'
+  - url: 'https://api.demo.tokend.oi'
     description: TokenD Developer Environment

@@ -1,0 +1,19 @@
+allOf:
+  - $ref: '#/components/schemas/CreateCredentialKey'
+  - type: object
+    required:
+      - attributes
+    properties:
+      attributes:
+        type: object
+        properties:
+          txID:
+            type: string
+          claimsTreeRoot:
+            type: string
+          state:
+            type: string
+          revocationTreeRoot:
+            type: string
+          rootOfRoots:
+            type: string

@@ -8,6 +8,15 @@ db:
 listener:
   addr: :8000
 
+issuer:
+  endpoint: "http://localhost:3001"
+  issuer_did: # if you want to use one did by default. Otherwise, leave empty and send issuer did via request
+  username: "user-issuer"
+  password: "password-issuer"
+  credential_schema: # if you want to use one VC schema by default. Otherwise, leave empty and send schema via request
+  credential_type: # if you want to use one schema type by default. Otherwise, leave empty and send type via request
+  expiration: # Optional. If your VC has expiration date. Could be sent via request body
+
 cop:
   disabled: true
   endpoint: "http://..."
