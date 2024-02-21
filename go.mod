@@ -1,6 +1,6 @@
 module gitlab.com/tokene/polygonid-issuer-integration
 
-go 1.21.3
+go 1.21
 
 require (
 	github.com/alecthomas/kingpin v2.2.6+incompatible
