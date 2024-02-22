@@ -1,0 +1,29 @@
+parameters:
+  - in: path
+    name: did
+    required: true
+    schema:
+      type: string
+      description: Issuer did to be requested
+  - in: path
+    name: nonce
+    required: true
+    schema:
+      type: string
+      description: Claim revocation nonce
+get:
+  tags:
+    - Claims
+  summary: Claim revocation status
+  operationId: RevocationStatus
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RevocationStatus'
+    '400':
+      $ref: '#/components/responses/BadRequestError'
+    '500':
+      $ref: '#/components/responses/InternalError'

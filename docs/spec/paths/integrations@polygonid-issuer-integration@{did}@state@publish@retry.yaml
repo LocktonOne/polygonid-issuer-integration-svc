@@ -1,0 +1,25 @@
+parameters:
+  - in: path
+    name: did
+    required: true
+    schema:
+      type: string
+      description: Issuer did to be requested
+post:
+  tags:
+    - Identities
+  summary: Retry publish state
+  operationId: RetryPublishState
+  responses:
+    '202':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PublishState'
+    '400':
+      $ref: '#/components/responses/BadRequestError'
+    '401':
+      $ref: '#/components/responses/UnauthorizedError'
+    '500':
+      $ref: '#/components/responses/InternalError'

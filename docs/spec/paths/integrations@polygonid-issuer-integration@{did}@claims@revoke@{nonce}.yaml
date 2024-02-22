@@ -1,0 +1,35 @@
+
+
+parameters:
+  - in: path
+    name: did
+    required: true
+    schema:
+      type: string
+      description: Issuer did to be requested
+  - in: path
+    name: nonce
+    required: true
+    schema:
+      type: string
+      description: Claim revocation nonce
+post:
+  tags:
+    - Claims
+  summary: Revoke claim
+  operationId: RevokeClaim
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RevokeCredential'
+    '400':
+      $ref: '#/components/responses/BadRequestError'
+    '401':
+      $ref: '#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '#/components/responses/NotFoundError'
+    '500':
+      $ref: '#/components/responses/InternalError'

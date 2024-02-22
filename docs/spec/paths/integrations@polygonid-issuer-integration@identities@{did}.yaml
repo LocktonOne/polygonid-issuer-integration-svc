@@ -1,0 +1,25 @@
+parameters:
+  - in: path
+    name: did
+    required: true
+    schema:
+      type: string
+      description: Issuer did to be requested
+get:
+  tags:
+    - Identities
+  summary: Identity detailed info
+  operationId: GetIdentityDetail
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetIdentityDetail'
+    '400':
+      $ref: '#/components/responses/BadRequestError'
+    '401':
+      $ref: '#/components/responses/UnauthorizedError'
+    '500':
+      $ref: '#/components/responses/InternalError'

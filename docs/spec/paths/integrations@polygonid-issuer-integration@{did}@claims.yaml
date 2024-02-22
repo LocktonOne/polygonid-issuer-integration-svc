@@ -1,0 +1,98 @@
+parameters:
+  - in: path
+    name: did
+    required: true
+    schema:
+      type: string
+      description: Issuer did to be requested
+post:
+  tags:
+    - Claims
+  summary: Create Claim
+  operationId: CreateClaim
+  requestBody:
+    content:
+      application/vnd.api+json:
+        schema:
+          type: object
+          required:
+            - data
+          properties:
+            data:
+              type: object
+              $ref: '#/components/schemas/CreateCredentialRequest'
+  responses:
+    '201':
+      description: Claim created successfully
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/CreateCredentialKey'
+    '400':
+      $ref: '#/components/responses/BadRequestError'
+    '401':
+      $ref: '#/components/responses/UnauthorizedError'
+    '500':
+      $ref: '#/components/responses/InternalError'
+get:
+  tags:
+    - Claims
+  summary: List of claims
+  operationId: ListClaims
+  parameters:
+    - in: query
+      name: schemaType
+      schema:
+        type: string
+      description: Filter per schema type. Example - KYCAgeCredential
+    - in: query
+      name: schemaHash
+      schema:
+        type: string
+      description: Filter per schema hash. Example - c9b2370371b7fa8b3dab2a5ba81b6838
+    - in: query
+      name: subject
+      schema:
+        type: string
+      description: Filter per subject. Example - did:polygonid:polygon:mumbai:2qE1BZ7gcmEoP2KppvFPCZqyzyb5tK9T6Gec5HFANQ
+    - in: query
+      name: revoked
+      schema:
+        type: boolean
+      description: Filter per claims revoked or not - Example - true.
+    - in: query
+      name: self
+      schema:
+        type: boolean
+      description: Filter per retrieve claims of the provided identifier. Example - true
+    - in: query
+      name: query_field
+      schema:
+        type: string
+      description: Filter this field inside the data of the claim
+    - in: query
+      name: query_value
+      schema:
+        type: string
+      description: Filter this value inside the data of the claim for the specified field in query_field
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetCredential'
+    '400':
+      $ref: '#/components/responses/BadRequestError'
+    '401':
+      $ref: '#/components/responses/UnauthorizedError'
+    '500':
+      $ref: '#/components/responses/InternalError'

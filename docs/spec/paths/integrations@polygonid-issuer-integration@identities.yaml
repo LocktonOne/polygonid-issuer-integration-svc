@@ -1,0 +1,55 @@
+post:
+  tags:
+    - Identities
+  summary: Create Identity
+  operationId: CreateIdentity
+  requestBody:
+    content:
+      application/vnd.api+json:
+        schema:
+          type: object
+          required:
+            - data
+          properties:
+            data:
+              type: object
+              $ref: '#/components/schemas/CreateIdentityRequest'
+  responses:
+    '201':
+      description: Identity created successfully
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/CreateIdentity'
+    '400':
+      $ref: '#/components/responses/BadRequestError'
+    '401':
+      $ref: '#/components/responses/UnauthorizedError'
+    '500':
+      $ref: '#/components/responses/InternalError'
+get:
+  tags:
+    - Identities
+  summary: List of identities
+  operationId: ListIdentities
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentityKey'
+    '400':
+      $ref: '#/components/responses/BadRequestError'
+    '401':
+      $ref: '#/components/responses/UnauthorizedError'
+    '500':
+      $ref: '#/components/responses/InternalError'

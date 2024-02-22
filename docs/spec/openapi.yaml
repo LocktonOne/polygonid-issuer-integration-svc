@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: polygonid-integration-svc
-  description: ''
+  description: TokenE Module for integration with Polygon ID issuer
 servers:
-  - url: 'https://api.demo.tokend.oi'
-    description: TokenD Developer Environment
+  - url: 'https://api.demo.polygonid.issuer.integration.com'
+    description: TokenE Module for integration with Polygon ID issuer
