@@ -1,0 +1,90 @@
+allOf:
+  - $ref: '#/components/schemas/SetZKPRequestKey'
+  - type: object
+    required:
+      - attributes
+    x-go-is-request: true
+    properties:
+      attributes:
+        type: object
+        required:
+          - schema_url
+          - schema_type
+          - field_name
+          - request_id
+          - value
+          - operator
+          - slot_index
+          - circuit_id
+          - skip_claim_revocation_check
+          - claim_path_not_exists
+          - verifier_address
+          - claim
+          - reason
+          - chain_id
+        properties:
+          schema_url:
+            type: string
+            example: >-
+              https:#raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json/KYCAgeCredential-v3.json
+          schema_type:
+            type: string
+            example: KYCAgeCredential
+          field_name:
+            type: string
+            example: birthday
+          request_id:
+            type: integer
+            format: int64
+            example: 1
+          operator:
+            type: string
+            enum:
+              - NOOP # No operation, skip query verification in circuit
+              - EQ # equal
+              - LT # less than
+              - GT # greater than
+              - IN # in
+              - NIN # not in
+              - NE  # not equal
+            example: LT
+          slot_index:
+            type: integer
+            format: int64
+            example: 0
+          value:
+            type: array
+            items:
+              type: integer
+              format: int64
+            example: [20020101]
+          circuit_id:
+            type: string
+            enum:
+              - credentialAtomicQuerySigV2OnChain
+              - credentialAtomicQueryMTPV2OnChain
+            example: 'credentialAtomicQuerySigV2OnChain'
+          skip_claim_revocation_check:
+            type: boolean
+            example: false
+          claim_path_not_exists:
+            type: boolean
+            example: false
+          verifier_address:
+            type: string
+            example: 0xf2494e93c15b6d6DE5f6339A31c4a5d337cfBd33
+          validator_address:
+            type: string
+            example: 0x1E4a22540E293C0e5E8c33DAfd6f523889cFd878
+          claim:
+            type: string
+            example: 20319671-d16f-11ee-8a51-0242ac120006
+          reason:
+            type: string
+            example: Test Reason
+          allowed_issuers:
+            type: array
+            items:
+              type: string
+
+

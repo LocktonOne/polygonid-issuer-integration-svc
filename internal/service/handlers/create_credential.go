@@ -52,7 +52,6 @@ func CreateCredential(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("content-type", jsonapi.MediaType)
 	w.WriteHeader(code)
 	ape.Render(w, resources.Key{
 		ID:   credential,

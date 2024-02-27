@@ -13,6 +13,7 @@ type ctxKey int
 const (
 	logCtxKey ctxKey = iota
 	issuerConfigKey
+	networkConfigKey
 )
 
 func CtxLog(entry *logan.Entry) func(context.Context) context.Context {
@@ -33,4 +34,14 @@ func CtxIssuerConfig(entry config.IssuerConfig) func(context.Context) context.Co
 
 func IssuerConfig(r *http.Request) config.IssuerConfig {
 	return r.Context().Value(issuerConfigKey).(config.IssuerConfig)
+}
+
+func CtxNetworkConfig(entry config.NetworkConfig) func(context.Context) context.Context {
+	return func(ctx context.Context) context.Context {
+		return context.WithValue(ctx, networkConfigKey, entry)
+	}
+}
+
+func NetworkConfig(r *http.Request) config.NetworkConfig {
+	return r.Context().Value(networkConfigKey).(config.NetworkConfig)
 }

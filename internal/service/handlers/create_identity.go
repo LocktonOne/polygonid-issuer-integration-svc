@@ -40,7 +40,6 @@ func CreateIdentity(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("content-type", jsonapi.MediaType)
 	w.WriteHeader(code)
 	ape.Render(w, converter.ToCreateIdentityResource(*response))
 }

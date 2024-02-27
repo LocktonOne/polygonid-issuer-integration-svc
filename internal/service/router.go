@@ -16,6 +16,7 @@ func (s *service) router() chi.Router {
 		ape.CtxMiddleware(
 			helpers.CtxLog(s.log),
 			helpers.CtxIssuerConfig(s.config.IssuerConfig()),
+			helpers.CtxNetworkConfig(s.config.NetworkConfig()),
 		),
 	)
 	r.Route("/integrations/polygonid-issuer-integration", func(r chi.Router) {
@@ -44,6 +45,12 @@ func (s *service) router() chi.Router {
 				r.Post("/retry", handlers.RetryPublishIdentityState)
 			})
 		})
+		r.Route("/verifier", func(r chi.Router) {
+			r.Post("/", handlers.DeployOnChainVerifier)
+			r.Post("/request/set", handlers.SetZKPRequest)
+
+		})
+
 	})
 
 	return r

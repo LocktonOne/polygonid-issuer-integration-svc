@@ -1,0 +1,16 @@
+allOf:
+  - $ref: '#/components/schemas/DeployVerifierKey'
+  - type: object
+    required:
+      - attributes
+    properties:
+      attributes:
+        type: object
+        required:
+          - address
+          - tx
+        properties:
+          address:
+            type: string
+          tx:
+            type: string

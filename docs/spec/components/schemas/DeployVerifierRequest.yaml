@@ -1,0 +1,17 @@
+allOf:
+  - $ref: '#/components/schemas/DeployVerifierKey'
+  - type: object
+    x-go-is-request: true
+    required:
+      - attributes
+    properties:
+      attributes:
+        type: object
+        required:
+          - name
+          - symbol
+        properties:
+          name:
+            type: string
+          symbol:
+            type: string

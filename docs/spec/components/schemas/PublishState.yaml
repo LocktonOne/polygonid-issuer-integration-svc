@@ -1,5 +1,5 @@
 allOf:
-  - $ref: '#/components/schemas/CreateCredentialKey'
+  - $ref: '#/components/schemas/PublishStateKey'
   - type: object
     required:
       - attributes
