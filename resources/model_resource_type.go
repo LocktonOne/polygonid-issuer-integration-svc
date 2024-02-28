@@ -17,4 +17,5 @@ const (
 	REVOCATION_STATUS ResourceType = "revocation_status"
 	REVOKE_CREDENTIAL ResourceType = "revoke_credential"
 	SET_ZKP_REQUEST   ResourceType = "set_zkp_request"
+	TRANSACTION       ResourceType = "transaction"
 )

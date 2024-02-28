@@ -4,12 +4,12 @@ import (
 	"gitlab.com/tokene/polygonid-issuer-integration/resources"
 )
 
-func ToDeployVerifierResource(address, tx string) resources.DeployVerifierResponse {
+func ToTransactionResource(address, tx string) resources.DeployVerifierResponse {
 	return resources.DeployVerifierResponse{
 		Data: resources.DeployVerifier{
 			Key: resources.Key{
 				ID:   "",
-				Type: resources.PUBLISH_STATE,
+				Type: resources.TRANSACTION,
 			},
 			Attributes: resources.DeployVerifierAttributes{
 				Address: address,

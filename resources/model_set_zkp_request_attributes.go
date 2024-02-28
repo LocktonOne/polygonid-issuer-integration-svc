@@ -7,7 +7,6 @@ package resources
 type SetZkpRequestAttributes struct {
 	AllowedIssuers           *[]string `json:"allowed_issuers,omitempty"`
 	CircuitId                string    `json:"circuit_id"`
-	Claim                    string    `json:"claim"`
 	ClaimPathNotExists       bool      `json:"claim_path_not_exists"`
 	FieldName                string    `json:"field_name"`
 	Operator                 string    `json:"operator"`

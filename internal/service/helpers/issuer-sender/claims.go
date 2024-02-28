@@ -19,7 +19,7 @@ func GetCredential(r *http.Request, did, claim string) (int, *types.GetClaimResp
 	if err != nil {
 		return code, nil, errors.Wrap(err, "failed to read notification service response")
 	}
-	fmt.Println(string(raw))
+
 	var issuerResp types.GetClaimResponse
 	if code >= http.StatusBadRequest {
 		var errResp helpers.Error
@@ -44,7 +44,7 @@ func GetCredentialQRCode(r *http.Request, did, claim string) (int, *types.GetCla
 	if err != nil {
 		return code, nil, errors.Wrap(err, "failed to read notification service response")
 	}
-	fmt.Println(string(raw))
+
 	var issuerResp types.GetClaimQrCodeResponse
 	if code >= http.StatusBadRequest {
 		var errResp helpers.Error
@@ -92,7 +92,7 @@ func ListCredential(r *http.Request, did string, params types.GetClaimsParams) (
 	if err != nil {
 		return code, nil, errors.Wrap(err, "failed to read notification service response")
 	}
-	fmt.Println(string(raw))
+
 	var issuerResp types.GetClaimsResponse
 	if code >= http.StatusBadRequest {
 		var errResp helpers.Error
@@ -117,7 +117,7 @@ func GetCredentialRevocationStatus(r *http.Request, did, nonce string) (int, *ty
 	if err != nil {
 		return code, nil, errors.Wrap(err, "failed to read notification service response")
 	}
-	fmt.Println(string(raw))
+
 	var issuerResp types.RevocationStatusResponse
 	if code >= http.StatusBadRequest {
 		var errResp helpers.Error
@@ -147,7 +147,7 @@ func CreateCredential(r *http.Request, did string, request types.CreateClaimRequ
 	if err != nil {
 		return code, "", errors.Wrap(err, "failed to read notification service response")
 	}
-	fmt.Println(raw)
+
 	var issuerResp types.CreateClaimResponse
 	if code >= http.StatusBadRequest {
 		var errResp helpers.Error
@@ -172,7 +172,7 @@ func RevokeCredential(r *http.Request, did, nonce string) (int, *types.RevokeCla
 	if err != nil {
 		return code, nil, errors.Wrap(err, "failed to read notification service response")
 	}
-	fmt.Println(raw)
+
 	var issuerResp types.RevokeClaimResponse
 	if code >= http.StatusBadRequest {
 		var errResp helpers.Error

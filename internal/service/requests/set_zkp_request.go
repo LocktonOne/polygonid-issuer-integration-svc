@@ -35,10 +35,6 @@ func (r SetZKPRequest) validate() error {
 			&r.Data.Attributes.CircuitId,
 			validation.Required,
 		),
-		"data/attributes/claim": validation.Validate(
-			&r.Data.Attributes.Claim,
-			validation.Required,
-		),
 		"data/attributes/field_name": validation.Validate(
 			&r.Data.Attributes.FieldName,
 			validation.Required,

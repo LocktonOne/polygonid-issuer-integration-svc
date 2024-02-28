@@ -1,0 +1,27 @@
+post:
+  tags:
+    - Verifier
+  summary: Deploy Verifier
+  operationId: DeployVerifier
+  requestBody:
+    content:
+      application/vnd.api+json:
+        schema:
+          type: object
+          required:
+            - data
+          properties:
+            data:
+              type: object
+              $ref: '#/components/schemas/DeployVerifierRequest'
+  responses:
+    '202':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeployVerifier'
+    '400':
+      $ref: '#/components/responses/BadRequestError'
+    '500':
+      $ref: '#/components/responses/InternalError'

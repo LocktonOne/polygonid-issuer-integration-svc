@@ -73,5 +73,5 @@ func DeployOnChainVerifier(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ape.Render(w, converter.ToDeployVerifierResource(address.Hex(), tx.Hash().Hex()))
+	ape.Render(w, converter.ToTransactionResource(address.Hex(), tx.Hash().Hex()))
 }

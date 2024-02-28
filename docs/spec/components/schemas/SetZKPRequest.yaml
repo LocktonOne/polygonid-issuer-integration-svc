@@ -19,7 +19,6 @@ allOf:
           - skip_claim_revocation_check
           - claim_path_not_exists
           - verifier_address
-          - claim
           - reason
           - chain_id
         properties:
@@ -76,9 +75,6 @@ allOf:
           validator_address:
             type: string
             example: 0x1E4a22540E293C0e5E8c33DAfd6f523889cFd878
-          claim:
-            type: string
-            example: 20319671-d16f-11ee-8a51-0242ac120006
           reason:
             type: string
             example: Test Reason

@@ -67,6 +67,7 @@ func ToQrCodeResource(obj types.GetClaimQrCodeResponse) resources.CredentialQrCo
 					Credentials: credentials,
 					Url:         obj.Body.Url,
 				},
+				Id:   obj.Id,
 				From: obj.From,
 				Thid: obj.Thid,
 				To:   obj.To,

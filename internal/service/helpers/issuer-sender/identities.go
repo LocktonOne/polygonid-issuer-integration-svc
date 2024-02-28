@@ -19,7 +19,7 @@ func GetIdentities(r *http.Request) (int, []string, error) {
 	if err != nil {
 		return code, nil, errors.Wrap(err, "failed to read notification service response")
 	}
-	fmt.Println(string(raw))
+
 	var issuerResp []string
 	if code >= http.StatusBadRequest {
 		var errResp helpers.Error
@@ -44,7 +44,7 @@ func GetIdentityDetail(r *http.Request, did string) (int, *types.GetIdentityDeta
 	if err != nil {
 		return code, nil, errors.Wrap(err, "failed to read notification service response")
 	}
-	fmt.Println(string(raw))
+
 	var issuerResp types.GetIdentityDetailsResponse
 	if code >= http.StatusBadRequest {
 		var errResp helpers.Error
@@ -75,7 +75,6 @@ func CreateIdentity(r *http.Request, request resources.IssuerCreateIdentityReque
 		return code, nil, errors.Wrap(err, "failed to read notification service response")
 	}
 
-	fmt.Println(string(raw))
 	if code >= http.StatusBadRequest {
 		var errResp helpers.Error
 		if err = json.Unmarshal(raw, &errResp); err != nil {
@@ -101,7 +100,7 @@ func PublishIdentityState(r *http.Request, did string) (int, *types.PublishIdent
 	if err != nil {
 		return code, nil, errors.Wrap(err, "failed to read notification service response")
 	}
-	fmt.Println(string(raw))
+
 	var issuerResp types.PublishIdentityStateResponse
 	if code >= http.StatusBadRequest || code == http.StatusOK {
 		var errResp helpers.Error
@@ -127,7 +126,7 @@ func RetryPublishIdentityState(r *http.Request, did string) (int, *types.Publish
 	if err != nil {
 		return code, nil, errors.Wrap(err, "failed to read notification service response")
 	}
-	fmt.Println(string(raw))
+
 	var issuerResp types.PublishIdentityStateResponse
 	if code >= http.StatusBadRequest {
 		var errResp helpers.Error

@@ -4,12 +4,12 @@ import (
 	"context"
 	"crypto/ecdsa"
 	"encoding/json"
-	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/google/uuid"
 	core "github.com/iden3/go-iden3-core"
 	"github.com/iden3/go-iden3-crypto/poseidon"
 	"github.com/iden3/go-schema-processor/merklize"
@@ -38,9 +38,6 @@ func SetZKPRequest(w http.ResponseWriter, r *http.Request) {
 		ape.RenderErr(w, problems.BadRequest(err)...)
 		return
 	}
-	//schemaUrl := "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld"
-	//typ := "KYCAgeCredential"
-	//fieldName := "birthday" // in form of field.field2.field3 field must be present in the credential subject
 
 	resp, err := http.Get(request.Data.Attributes.SchemaUrl)
 	if err != nil {
@@ -150,8 +147,8 @@ func SetZKPRequest(w http.ResponseWriter, r *http.Request) {
 		ape.RenderErr(w, problems.InternalError())
 		return
 	}
-	fmt.Println(string(tx.Data()))
-	ape.Render(w, converter.ToDeployVerifierResource(request.Data.Attributes.VerifierAddress, tx.Hash().Hex()))
+
+	ape.Render(w, converter.ToTransactionResource(request.Data.Attributes.VerifierAddress, tx.Hash().Hex()))
 }
 
 func calculateQueryHash(valuesRaw []int64, schema, operator string, slotIndex int64, claimPathKey string, claimPathNotExists bool) (string, error) {
@@ -211,12 +208,12 @@ func invokeRequestMetadata(r *http.Request, request requests.SetZKPRequest) (str
 	} else {
 		allowedIssuers = append(allowedIssuers, "*")
 	}
-
+	id := uuid.New().String()
 	metadata := types.RequestMetadata{
-		Id:   request.Data.Attributes.Claim,
+		Id:   id,
 		Typ:  "application/iden3comm-plain-json",
 		Type: "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
-		Thid: request.Data.Attributes.Claim,
+		Thid: id,
 		Body: struct {
 			Reason          string `json:"reason"`
 			TransactionData struct {
@@ -305,14 +302,16 @@ func getData(request requests.SetZKPRequest, schema, claimPathKey, queryHash str
 	args := abi.Arguments{
 		{Name: "CredentialAtomicQuery", Type: credentialAtomicQuery},
 	}
-	var allowedIssuers []*big.Int
-	//if request.Data.Attributes.AllowedIssuers != nil {
-	//	for _, issuer := range *request.Data.Attributes.AllowedIssuers {
-	//		buf := make([]byte, utf8.UTFMax) // UTFMax is the maximum number of bytes a single UTF-8 encoded rune can have (4 bytes)
-	//		n := utf8.EncodeRune(buf, issuer)
-	//		allowedIssuers = append(poseidon.Hash())
-	//	}
-	//}
+	allowedIssuers := []*big.Int{}
+	if request.Data.Attributes.AllowedIssuers != nil {
+		for _, issuer := range *request.Data.Attributes.AllowedIssuers {
+			did := new(core.DID)
+			if err := did.SetString(issuer); err != nil {
+				return nil, errors.Wrap(err, "failed to convert allowed issuer")
+			}
+			allowedIssuers = append(allowedIssuers, did.ID.BigInt())
+		}
+	}
 
 	schemaBigInt, _ := big.NewInt(0).SetString(schema, 10)
 	claimPathKeyBigInt, _ := big.NewInt(0).SetString(claimPathKey, 10)
