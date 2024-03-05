@@ -4,7 +4,7 @@
 
 package resources
 
-import (a
+import (
 	"strconv"
 )
 

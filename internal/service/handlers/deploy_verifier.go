@@ -10,20 +10,12 @@ import (
 	"gitlab.com/distributed_lab/ape/problems"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/converter"
-	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/requests"
-	"gitlab.com/tokene/polygonid-issuer-integration/solidity/generated/erc20verifier"
+	"gitlab.com/tokene/polygonid-issuer-integration/solidity/generated/zkpverifier"
 	"math/big"
 	"net/http"
 )
 
 func DeployOnChainVerifier(w http.ResponseWriter, r *http.Request) {
-	request, err := requests.NewDeployVerifierRequest(r)
-	if err != nil {
-		helpers.Log(r).WithError(err).Info("wrong request")
-		ape.RenderErr(w, problems.BadRequest(err)...)
-		return
-	}
-
 	client, err := ethclient.Dial(helpers.NetworkConfig(r).RpcUrl.String())
 	if err != nil {
 		helpers.Log(r).WithError(err).Info("failed to connect client to the RPC URL")
@@ -66,12 +58,12 @@ func DeployOnChainVerifier(w http.ResponseWriter, r *http.Request) {
 		auth.GasLimit = helpers.NetworkConfig(r).GasLimit
 	}
 
-	address, tx, _, err := erc20verifier.DeployErc20verifier(auth, client, request.Data.Attributes.Name, request.Data.Attributes.Symbol)
+	address, tx, _, err := zkpverifier.DeployZkpverifier(auth, client)
 	if err != nil {
 		helpers.Log(r).WithError(err).Info("failed to deploy contract")
 		ape.RenderErr(w, problems.InternalError())
 		return
 	}
 
-	ape.Render(w, converter.ToTransactionResource(address.Hex(), tx.Hash().Hex()))
+	ape.Render(w, converter.ToTransactionResource("", address.Hex(), tx.Hash().Hex()))
 }

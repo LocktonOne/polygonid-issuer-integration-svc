@@ -22,7 +22,7 @@ import (
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/converter"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/requests"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/types"
-	"gitlab.com/tokene/polygonid-issuer-integration/solidity/generated/erc20verifier"
+	"gitlab.com/tokene/polygonid-issuer-integration/solidity/generated/zkpverifier"
 	"io"
 	"math/big"
 	"net/http"
@@ -89,7 +89,8 @@ func SetZKPRequest(w http.ResponseWriter, r *http.Request) {
 		ape.RenderErr(w, problems.BadRequest(err)...)
 		return
 	}
-	metadata, err := invokeRequestMetadata(r, *request)
+	id := uuid.New().String()
+	metadata, err := invokeRequestMetadata(r, *request, id)
 	if err != nil {
 		helpers.Log(r).WithError(err).Info("failed to invoke request metadata")
 		ape.RenderErr(w, problems.BadRequest(err)...)
@@ -128,7 +129,7 @@ func SetZKPRequest(w http.ResponseWriter, r *http.Request) {
 		ape.RenderErr(w, problems.InternalError())
 		return
 	}
-	erc20verifierContract, err := erc20verifier.NewErc20verifier(common.HexToAddress(request.Data.Attributes.VerifierAddress), client)
+	erc20verifierContract, err := zkpverifier.NewZkpverifier(common.HexToAddress(request.Data.Attributes.VerifierAddress), client)
 	auth, err := bind.NewKeyedTransactorWithChainID(helpers.NetworkConfig(r).PrivateKey, big.NewInt(helpers.NetworkConfig(r).ChainId))
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0)
@@ -137,7 +138,7 @@ func SetZKPRequest(w http.ResponseWriter, r *http.Request) {
 	}
 	auth.GasPrice = gasPrice
 
-	tx, err := erc20verifierContract.SetZKPRequest(auth, uint64(request.Data.Attributes.RequestId), erc20verifier.IZKPVerifierZKPRequest{
+	tx, err := erc20verifierContract.SetZKPRequest(auth, uint64(request.Data.Attributes.RequestId), zkpverifier.IZKPVerifierZKPRequest{
 		Metadata:  metadata,
 		Validator: common.HexToAddress(*request.Data.Attributes.ValidatorAddress),
 		Data:      data,
@@ -148,7 +149,7 @@ func SetZKPRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ape.Render(w, converter.ToTransactionResource(request.Data.Attributes.VerifierAddress, tx.Hash().Hex()))
+	ape.Render(w, converter.ToTransactionResource(id, request.Data.Attributes.VerifierAddress, tx.Hash().Hex()))
 }
 
 func calculateQueryHash(valuesRaw []int64, schema, operator string, slotIndex int64, claimPathKey string, claimPathNotExists bool) (string, error) {
@@ -192,7 +193,7 @@ func calculateQueryHash(valuesRaw []int64, schema, operator string, slotIndex in
 	return queryHash.String(), nil
 }
 
-func invokeRequestMetadata(r *http.Request, request requests.SetZKPRequest) (string, error) {
+func invokeRequestMetadata(r *http.Request, request requests.SetZKPRequest, id string) (string, error) {
 	subject := make(map[string]interface{})
 	subData := make(map[string]interface{})
 	if types.StringOperator(request.Data.Attributes.Operator) == types.IN || types.StringOperator(request.Data.Attributes.Operator) == types.NIN {
@@ -208,7 +209,7 @@ func invokeRequestMetadata(r *http.Request, request requests.SetZKPRequest) (str
 	} else {
 		allowedIssuers = append(allowedIssuers, "*")
 	}
-	id := uuid.New().String()
+
 	metadata := types.RequestMetadata{
 		Id:   id,
 		Typ:  "application/iden3comm-plain-json",
@@ -302,7 +303,7 @@ func getData(request requests.SetZKPRequest, schema, claimPathKey, queryHash str
 	args := abi.Arguments{
 		{Name: "CredentialAtomicQuery", Type: credentialAtomicQuery},
 	}
-	allowedIssuers := []*big.Int{}
+	var allowedIssuers []*big.Int
 	if request.Data.Attributes.AllowedIssuers != nil {
 		for _, issuer := range *request.Data.Attributes.AllowedIssuers {
 			did := new(core.DID)
@@ -328,7 +329,13 @@ func getData(request requests.SetZKPRequest, schema, claimPathKey, queryHash str
 		SkipClaimRevocationCheck: request.Data.Attributes.SkipClaimRevocationCheck,
 		ClaimPathNotExists:       big.NewInt(cast.ToInt64(request.Data.Attributes.ClaimPathNotExists)),
 	}
+	//spew.Dump(record)
 	packed, err := args.Pack(&record)
+	//for len(packed) > 0 {
+	//	r, size := utf8.DecodeRune(packed)
+	//	fmt.Printf("%c", r)
+	//	packed = packed[size:]
+	//}
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to pack data args")
 	}

@@ -48,8 +48,8 @@ func (s *service) router() chi.Router {
 		r.Route("/verifier", func(r chi.Router) {
 			r.Post("/", handlers.DeployOnChainVerifier)
 			r.Post("/request/set", handlers.SetZKPRequest)
-
 		})
+		r.Post("/state", handlers.DeployState)
 
 	})
 
