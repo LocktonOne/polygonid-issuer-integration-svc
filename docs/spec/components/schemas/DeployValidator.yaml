@@ -1,0 +1,20 @@
+allOf:
+  - $ref: '#/components/schemas/DeployValidatorKey'
+  - type: object
+    required:
+      - attributes
+    x-go-is-request: true
+    properties:
+      attributes:
+        type: object
+        required:
+          - state_address
+          - validator_type
+        properties:
+          state_address:
+            type: string
+          validator_type:
+            type: string
+            enum:
+              - mtp
+              - sig

@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 	"crypto/ecdsa"
+	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
@@ -11,6 +12,8 @@ import (
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/converter"
 	"gitlab.com/tokene/polygonid-issuer-integration/solidity/generated/state"
+	"gitlab.com/tokene/polygonid-issuer-integration/solidity/generated/statelib"
+	"gitlab.com/tokene/polygonid-issuer-integration/solidity/generated/verifierstatetransition"
 	"math/big"
 	"net/http"
 )
@@ -57,6 +60,21 @@ func DeployState(w http.ResponseWriter, r *http.Request) {
 	if helpers.NetworkConfig(r).GasLimit != 0 {
 		auth.GasLimit = helpers.NetworkConfig(r).GasLimit
 	}
+
+	verifierStateTransitionAddress, tx, _, err := verifierstatetransition.DeployVerifierstatetransition(auth, client)
+	if err != nil {
+		helpers.Log(r).WithError(err).Info("failed to deploy contract")
+		ape.RenderErr(w, problems.InternalError())
+		return
+	}
+	fmt.Println(verifierStateTransitionAddress)
+	statelibAddress, tx, _, err := statelib.DeployStatelib(auth, client)
+	if err != nil {
+		helpers.Log(r).WithError(err).Info("failed to deploy contract")
+		ape.RenderErr(w, problems.InternalError())
+		return
+	}
+	fmt.Println(statelibAddress)
 
 	address, tx, _, err := state.DeployState(auth, client)
 	if err != nil {

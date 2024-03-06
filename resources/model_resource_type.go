@@ -11,6 +11,7 @@ const (
 	CREATE_CREDENTIAL ResourceType = "create_credential"
 	CREATE_IDENTITY   ResourceType = "create_identity"
 	QR_CODE           ResourceType = "qr_code"
+	DEPLOY_VALIDATOR  ResourceType = "deploy-validator"
 	DEPLOY_VERIFIER   ResourceType = "deploy_verifier"
 	IDENTITY          ResourceType = "identity"
 	PUBLISH_STATE     ResourceType = "publish_state"

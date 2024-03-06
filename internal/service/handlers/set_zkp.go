@@ -1,14 +1,9 @@
 package handlers
 
 import (
-	"context"
-	"crypto/ecdsa"
 	"encoding/json"
 	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/google/uuid"
 	core "github.com/iden3/go-iden3-core"
 	"github.com/iden3/go-iden3-crypto/poseidon"
@@ -102,42 +97,15 @@ func SetZKPRequest(w http.ResponseWriter, r *http.Request) {
 		ape.RenderErr(w, problems.BadRequest(err)...)
 		return
 	}
-	client, err := ethclient.Dial(helpers.NetworkConfig(r).RpcUrl.String())
+
+	auth, client, err := helpers.GetEthClient(r)
 	if err != nil {
-		helpers.Log(r).WithError(err).Info("failed to connect client to the RPC URL")
-		ape.RenderErr(w, problems.InternalError())
-		return
-	}
-	publicKeyECDSA, ok := helpers.NetworkConfig(r).PrivateKey.Public().(*ecdsa.PublicKey)
-	if !ok {
-		helpers.Log(r).WithError(err).Info("failed to casting public key to ECDSA")
+		helpers.Log(r).WithError(err).Info("failed to get eth client")
 		ape.RenderErr(w, problems.InternalError())
 		return
 	}
 
-	fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
-	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
-	if err != nil {
-		helpers.Log(r).WithError(err).Info("failed to to get account nonce")
-		ape.RenderErr(w, problems.InternalError())
-		return
-	}
-
-	gasPrice, err := client.SuggestGasPrice(context.Background())
-	if err != nil {
-		helpers.Log(r).WithError(err).Info("failed to get gas price")
-		ape.RenderErr(w, problems.InternalError())
-		return
-	}
 	erc20verifierContract, err := zkpverifier.NewZkpverifier(common.HexToAddress(request.Data.Attributes.VerifierAddress), client)
-	auth, err := bind.NewKeyedTransactorWithChainID(helpers.NetworkConfig(r).PrivateKey, big.NewInt(helpers.NetworkConfig(r).ChainId))
-	auth.Nonce = big.NewInt(int64(nonce))
-	auth.Value = big.NewInt(0)
-	if helpers.NetworkConfig(r).GasLimit != 0 {
-		auth.GasLimit = helpers.NetworkConfig(r).GasLimit
-	}
-	auth.GasPrice = gasPrice
-
 	tx, err := erc20verifierContract.SetZKPRequest(auth, uint64(request.Data.Attributes.RequestId), zkpverifier.IZKPVerifierZKPRequest{
 		Metadata:  metadata,
 		Validator: common.HexToAddress(*request.Data.Attributes.ValidatorAddress),

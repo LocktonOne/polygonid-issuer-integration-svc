@@ -50,6 +50,7 @@ func (s *service) router() chi.Router {
 			r.Post("/request/set", handlers.SetZKPRequest)
 		})
 		r.Post("/state", handlers.DeployState)
+		r.Post("/validator", handlers.DeployValidator)
 
 	})
 
