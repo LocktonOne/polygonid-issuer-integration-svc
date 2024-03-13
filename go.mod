@@ -1,14 +1,14 @@
 module gitlab.com/tokene/polygonid-issuer-integration
 
-go 1.21
+go 1.20
 
 require (
 	github.com/alecthomas/kingpin v2.2.6+incompatible
-	github.com/davecgh/go-spew v1.1.1
 	github.com/ethereum/go-ethereum v1.13.13
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-ozzo/ozzo-validation/v4 v4.2.1
 	github.com/google/jsonapi v0.0.0-20200226002910-c8283f632fb7
+	github.com/google/uuid v1.3.0
 	github.com/iden3/go-iden3-core v1.0.2
 	github.com/iden3/go-iden3-crypto v0.0.16
 	github.com/iden3/go-schema-processor v1.3.1
@@ -45,7 +45,6 @@ require (
 	github.com/getsentry/sentry-go v0.7.0 // indirect
 	github.com/go-gorp/gorp/v3 v3.1.0 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20200217142428-fce0ec30dd00 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
