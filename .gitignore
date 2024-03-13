@@ -1,5 +1,11 @@
 .vscode/
 .idea/
 config.*.yaml
+
 docs/node_modules
 docs/web_deploy
+
+solidity/deploy/node_modules
+solidity/deploy/.env
+solidity/deploy/artifacts
+solidity/deploy/package-lock.json

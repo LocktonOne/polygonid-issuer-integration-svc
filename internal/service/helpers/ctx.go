@@ -14,6 +14,7 @@ const (
 	logCtxKey ctxKey = iota
 	issuerConfigKey
 	networkConfigKey
+	poseidonContractsConfigKey
 )
 
 func CtxLog(entry *logan.Entry) func(context.Context) context.Context {
@@ -44,4 +45,14 @@ func CtxNetworkConfig(entry config.NetworkConfig) func(context.Context) context.
 
 func NetworkConfig(r *http.Request) config.NetworkConfig {
 	return r.Context().Value(networkConfigKey).(config.NetworkConfig)
+}
+
+func CtxPoseidonContractsConfig(entry config.PoseidonContractsConfig) func(context.Context) context.Context {
+	return func(ctx context.Context) context.Context {
+		return context.WithValue(ctx, poseidonContractsConfigKey, entry)
+	}
+}
+
+func PoseidonContractsConfig(r *http.Request) config.PoseidonContractsConfig {
+	return r.Context().Value(poseidonContractsConfigKey).(config.PoseidonContractsConfig)
 }

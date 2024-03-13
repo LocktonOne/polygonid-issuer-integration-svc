@@ -16,6 +16,7 @@ type Config interface {
 
 	IssuerConfig() IssuerConfig
 	NetworkConfig() NetworkConfig
+	PoseidonContractsConfig() PoseidonContractsConfig
 }
 
 type config struct {
@@ -25,8 +26,9 @@ type config struct {
 	comfig.Listenerer
 	getter kv.Getter
 
-	issuer  comfig.Once
-	network comfig.Once
+	issuer            comfig.Once
+	network           comfig.Once
+	poseidonContracts comfig.Once
 }
 
 func New(getter kv.Getter) Config {

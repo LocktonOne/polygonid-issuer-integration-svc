@@ -34,6 +34,25 @@ use `./generate.sh --help` to see all available options.
 Note: if you are using Gitlab for building project `docs/spec/paths` folder must not be
 empty, otherwise only `Build and Publish` job will be passed.  
 
+## State contract
+
+We do use Iden3 State contract.
+
+To deploy the State contact on localhost run
+```
+  cd solidity/deploy
+  npm install
+  npm run deploy-localhost
+```
+To build documentation use `npm run build` command,
+that will create open-api documentation in `web_deploy` folder.
+
+To generate resources for Go models run `./generate.sh` script in root folder.
+use `./generate.sh --help` to see all available options.
+
+Note: if you are using Gitlab for building project `docs/spec/paths` folder must not be
+empty, otherwise only `Build and Publish` job will be passed.
+
 ## Running from docker 
   
 Make sure that docker installed.

@@ -50,6 +50,7 @@ func deployValidator(r *http.Request, validatorType, state string) (*common.Addr
 		}
 		auth.Nonce = auth.Nonce.Add(auth.Nonce, big.NewInt(1))
 
+		// TODO: deploy as proxy
 		credentialAtomicQueryMTPValidatorAddress, tx, credentialAtomicQueryMTPValidatorContract, err := credentialatomicquerymtpvalidator.DeployCredentialatomicquerymtpvalidator(auth, client)
 		if err != nil {
 			return nil, nil, errors.Wrap(err, "failed to deploy credential Atomic Query MTP Validator")
@@ -70,6 +71,7 @@ func deployValidator(r *http.Request, validatorType, state string) (*common.Addr
 		}
 		auth.Nonce = auth.Nonce.Add(auth.Nonce, big.NewInt(1))
 
+		// TODO: deploy as proxy
 		credentialAtomicQuerySigValidatorAddress, tx, credentialAtomicQuerySigValidatorContract, err := credentialatomicquerysigvalidator.DeployCredentialatomicquerysigvalidator(auth, client)
 		if err != nil {
 			return nil, nil, errors.Wrap(err, "failed to deploy credential Atomic Query Sig Validator")

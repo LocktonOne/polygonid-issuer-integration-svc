@@ -17,6 +17,7 @@ func (s *service) router() chi.Router {
 			helpers.CtxLog(s.log),
 			helpers.CtxIssuerConfig(s.config.IssuerConfig()),
 			helpers.CtxNetworkConfig(s.config.NetworkConfig()),
+			helpers.CtxPoseidonContractsConfig(s.config.PoseidonContractsConfig()),
 		),
 	)
 	r.Route("/integrations/polygonid-issuer-integration", func(r chi.Router) {
@@ -49,7 +50,8 @@ func (s *service) router() chi.Router {
 			r.Post("/", handlers.DeployOnChainVerifier)
 			r.Post("/request/set", handlers.SetZKPRequest)
 		})
-		r.Post("/state", handlers.DeployState)
+		// The library linking is not working
+		//r.Post("/state", handlers.DeployState)
 		r.Post("/validator", handlers.DeployValidator)
 
 	})
