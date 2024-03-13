@@ -2,8 +2,6 @@ module gitlab.com/tokene/polygonid-issuer-integration
 
 go 1.21
 
-toolchain go1.21.3
-
 require (
 	github.com/alecthomas/kingpin v2.2.6+incompatible
 	github.com/davecgh/go-spew v1.1.1
