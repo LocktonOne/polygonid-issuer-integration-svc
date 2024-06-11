@@ -13,12 +13,6 @@ issuer:
   username: "user-issuer"
   password: "password-issuer"
 
-# Needed for deploying state contract
-poseidon_contracts:
-  el1: 0x1c03033b01f9ECf7082D3e8577A3c0521e37F402
-  el2: 0x1c4131BA38eF5f7E313B47bcc989C9D80A75FFa1
-  el3: 0x40Cf68199c0202DFeD73e84326E9E4F54c2E0475
-
 network:
   rpc_url: http://127.0.0.1:8545/
   private_key: ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 # without 0x
