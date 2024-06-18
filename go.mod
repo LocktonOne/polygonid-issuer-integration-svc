@@ -2,8 +2,6 @@ module gitlab.com/tokene/polygonid-issuer-integration
 
 go 1.21
 
-toolchain go1.21.3
-
 require (
 	github.com/Masterminds/squirrel v1.4.0
 	github.com/alecthomas/kingpin v2.2.6+incompatible
