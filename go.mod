@@ -1,8 +1,6 @@
 module gitlab.com/tokene/polygonid-issuer-integration
 
-go 1.21
-
-toolchain go1.21.3
+go 1.21.3
 
 require (
 	github.com/Masterminds/squirrel v1.5.4
