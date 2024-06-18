@@ -2,15 +2,14 @@ package figure
 
 import (
 	"encoding/json"
+	"gitlab.com/distributed_lab/logan/v3"
 	"reflect"
 
-	"fmt"
 	"math/big"
 
 	"net/url"
 
 	"github.com/spf13/cast"
-	"gitlab.com/distributed_lab/logan/v3"
 	"gitlab.com/distributed_lab/logan/v3/errors"
 )
 
@@ -46,7 +45,7 @@ var (
 				for i, u := range v {
 					int64Value, err := cast.ToInt64E(u)
 					if err != nil {
-						return reflect.Value{}, fmt.Errorf("failed to cast slice element number %d: %#v of type %T into int64", i, value, value)
+						return reflect.Value{}, errors.Errorf("failed to cast slice element number %d: %#v of type %T into int64", i, value, value)
 					}
 					a = append(a, int64Value)
 				}
@@ -54,11 +53,11 @@ var (
 			case interface{}:
 				int64Value, err := cast.ToInt64E(value)
 				if err != nil {
-					return reflect.Value{}, fmt.Errorf("failed to cast %#v of type %T to int64", value, value)
+					return reflect.Value{}, errors.Errorf("failed to cast %#v of type %T to int64", value, value)
 				}
 				return reflect.ValueOf([]int64{int64Value}), nil
 			default:
-				return reflect.Value{}, fmt.Errorf("failed to cast %#v of type %T to []int64", value, value)
+				return reflect.Value{}, errors.Errorf("failed to cast %#v of type %T to []int64", value, value)
 			}
 		},
 		"[]string": func(value interface{}) (reflect.Value, error) {
@@ -173,7 +172,7 @@ var (
 			case int:
 				return reflect.ValueOf(big.NewInt(int64(v))), nil
 			default:
-				return reflect.Value{}, fmt.Errorf("unsupported conversion from %T", value)
+				return reflect.Value{}, errors.Errorf("unsupported conversion from %T", value)
 			}
 		},
 		"logan.Level": func(value interface{}) (reflect.Value, error) {
@@ -185,7 +184,7 @@ var (
 				}
 				return reflect.ValueOf(lvl), nil
 			default:
-				return reflect.Value{}, fmt.Errorf("unsupported conversion from %T", value)
+				return reflect.Value{}, errors.Errorf("unsupported conversion from %T", value)
 			}
 		},
 		"*uint64": func(value interface{}) (reflect.Value, error) {
@@ -197,7 +196,7 @@ var (
 				}
 				return reflect.ValueOf(&puint), nil
 			default:
-				return reflect.Value{}, fmt.Errorf("unsupported conversion from %T", value)
+				return reflect.Value{}, errors.Errorf("unsupported conversion from %T", value)
 			}
 		},
 		"*url.URL": func(value interface{}) (reflect.Value, error) {
@@ -211,7 +210,7 @@ var (
 			case nil:
 				return reflect.ValueOf(nil), nil
 			default:
-				return reflect.Value{}, fmt.Errorf("unsupported conversion from %T", value)
+				return reflect.Value{}, errors.Errorf("unsupported conversion from %T", value)
 			}
 		},
 		"json.RawMessage": func(value interface{}) (reflect.Value, error) {

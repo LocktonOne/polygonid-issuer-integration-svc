@@ -3,7 +3,7 @@ package comfig
 import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
-	"gitlab.com/distributed_lab/figure"
+	"gitlab.com/distributed_lab/figure/v3"
 	"gitlab.com/distributed_lab/kit/kv"
 	"gitlab.com/distributed_lab/logan/v3"
 	sentryhook "gitlab.com/distributed_lab/logan/v3/hook/sentry"

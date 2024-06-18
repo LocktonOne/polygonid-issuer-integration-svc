@@ -18,7 +18,7 @@ import (
 	"golang.org/x/crypto/blake2b"
 	"golang.org/x/crypto/blake2s"
 
-	multihash "github.com/multiformats/go-multihash/core"
+	"github.com/multiformats/go-multihash/core"
 )
 
 const (
