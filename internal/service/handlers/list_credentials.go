@@ -8,7 +8,7 @@ import (
 	"gitlab.com/distributed_lab/ape/problems"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/converter"
-	isuer_sender "gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/issuer-sender"
+	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/issuer-sender"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/requests"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/types"
 	"net/http"
@@ -29,7 +29,7 @@ func ListCredentials(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	code, response, err := isuer_sender.ListCredential(r, request.Did, types.GetClaimsParams{
+	code, response, err := issuer_sender.ListCredential(r, request.Did, types.GetClaimsParams{
 		SchemaType: request.SchemaType,
 		SchemaHash: request.SchemaHash,
 		Subject:    request.Subject,

@@ -29,7 +29,7 @@ github.com/benbjohnson/clock
 # github.com/bits-and-blooms/bitset v1.10.0
 ## explicit; go 1.16
 github.com/bits-and-blooms/bitset
-# github.com/btcsuite/btcd/btcec/v2 v2.2.0
+# github.com/btcsuite/btcd/btcec/v2 v2.3.2
 ## explicit; go 1.17
 github.com/btcsuite/btcd/btcec/v2
 github.com/btcsuite/btcd/btcec/v2/ecdsa
@@ -71,6 +71,9 @@ github.com/deckarep/golang-set/v2
 ## explicit; go 1.17
 github.com/decred/dcrd/dcrec/secp256k1/v4
 github.com/decred/dcrd/dcrec/secp256k1/v4/ecdsa
+# github.com/dgrijalva/jwt-go v3.2.0+incompatible
+## explicit
+github.com/dgrijalva/jwt-go
 # github.com/ethereum/c-kzg-4844 v0.4.0
 ## explicit; go 1.19
 github.com/ethereum/c-kzg-4844/bindings/go
@@ -104,6 +107,9 @@ github.com/ethereum/go-ethereum/rlp
 github.com/ethereum/go-ethereum/rlp/internal/rlpstruct
 github.com/ethereum/go-ethereum/rpc
 github.com/ethereum/go-ethereum/signer/core/apitypes
+# github.com/fatih/structs v1.1.0
+## explicit
+github.com/fatih/structs
 # github.com/fsnotify/fsnotify v1.6.0
 ## explicit; go 1.16
 github.com/fsnotify/fsnotify
@@ -400,6 +406,9 @@ gitlab.com/distributed_lab/ape/problems
 # gitlab.com/distributed_lab/figure v2.1.0+incompatible
 ## explicit
 gitlab.com/distributed_lab/figure
+# gitlab.com/distributed_lab/figure/v3 v3.1.2
+## explicit; go 1.19
+gitlab.com/distributed_lab/figure/v3
 # gitlab.com/distributed_lab/kit v1.11.2
 ## explicit; go 1.14
 gitlab.com/distributed_lab/kit/comfig
@@ -428,6 +437,18 @@ gitlab.com/distributed_lab/running
 gitlab.com/distributed_lab/urlval
 gitlab.com/distributed_lab/urlval/internal
 gitlab.com/distributed_lab/urlval/internal/betterreflect
+# gitlab.com/tokene/doorman v0.1.7
+## explicit; go 1.18
+gitlab.com/tokene/doorman/connector
+gitlab.com/tokene/doorman/connector/config
+gitlab.com/tokene/doorman/contracts/master_access_management
+gitlab.com/tokene/doorman/contracts/master_contracts_registry
+gitlab.com/tokene/doorman/internal/config
+gitlab.com/tokene/doorman/internal/service/helpers
+gitlab.com/tokene/doorman/resources
+# gitlab.com/tokene/go-sdk v0.1.1
+## explicit; go 1.18
+gitlab.com/tokene/go-sdk
 # golang.org/x/crypto v0.23.0
 ## explicit; go 1.18
 golang.org/x/crypto/blake2b
@@ -447,6 +468,7 @@ golang.org/x/exp/slog/internal/buffer
 golang.org/x/mod/semver
 # golang.org/x/net v0.25.0
 ## explicit; go 1.18
+golang.org/x/net/context
 golang.org/x/net/http/httpguts
 golang.org/x/net/http2
 golang.org/x/net/http2/hpack

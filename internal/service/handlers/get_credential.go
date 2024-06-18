@@ -8,7 +8,7 @@ import (
 	"gitlab.com/distributed_lab/ape/problems"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/converter"
-	isuer_sender "gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/issuer-sender"
+	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/issuer-sender"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/requests"
 	"net/http"
 	"strings"
@@ -23,7 +23,7 @@ func GetCredential(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	code, response, err := isuer_sender.GetCredential(r, request.Did, request.Claim)
+	code, response, err := issuer_sender.GetCredential(r, request.Did, request.Claim)
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to get credential")
 		ape.RenderErr(w, &jsonapi.ErrorObject{

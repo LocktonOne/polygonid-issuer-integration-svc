@@ -5,13 +5,14 @@ go 1.21
 toolchain go1.21.3
 
 require (
+	github.com/Masterminds/squirrel v1.4.0
 	github.com/alecthomas/kingpin v2.2.6+incompatible
 	github.com/ethereum/go-ethereum v1.13.13
+	github.com/fatih/structs v1.1.0
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-ozzo/ozzo-validation/v4 v4.2.1
 	github.com/google/jsonapi v0.0.0-20200226002910-c8283f632fb7
 	github.com/google/uuid v1.3.0
-	github.com/hashicorp/vault/api v1.14.0
 	github.com/iden3/go-iden3-core v1.0.2
 	github.com/iden3/go-iden3-crypto v0.0.16
 	github.com/iden3/go-schema-processor v1.3.1
@@ -23,18 +24,18 @@ require (
 	gitlab.com/distributed_lab/kit v1.11.2
 	gitlab.com/distributed_lab/logan v3.8.1+incompatible
 	gitlab.com/distributed_lab/urlval v3.0.0+incompatible
+	gitlab.com/tokene/doorman v0.1.7
 )
 
 require (
 	github.com/BurntSushi/toml v1.1.0 // indirect
-	github.com/Masterminds/squirrel v1.4.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20231202071711-9a357b53e9c9 // indirect
 	github.com/benbjohnson/clock v1.3.5 // indirect
 	github.com/bits-and-blooms/bitset v1.10.0 // indirect
-	github.com/btcsuite/btcd/btcec/v2 v2.2.0 // indirect
+	github.com/btcsuite/btcd/btcec/v2 v2.3.2 // indirect
 	github.com/cenkalti/backoff/v3 v3.0.0 // indirect
 	github.com/certifi/gocertifi v0.0.0-20200211180108-c7c1fbc02894 // indirect
 	github.com/consensys/bavard v0.1.13 // indirect
@@ -43,6 +44,7 @@ require (
 	github.com/crate-crypto/go-kzg-4844 v0.7.0 // indirect
 	github.com/deckarep/golang-set/v2 v2.1.0 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.2.0 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/ethereum/c-kzg-4844 v0.4.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/getsentry/raven-go v0.2.0 // indirect
@@ -61,6 +63,7 @@ require (
 	github.com/hashicorp/go-secure-stdlib/strutil v0.1.2 // indirect
 	github.com/hashicorp/go-sockaddr v1.0.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/hashicorp/vault/api v1.14.0 // indirect
 	github.com/holiman/uint256 v1.2.4 // indirect
 	github.com/iden3/go-merkletree-sql/v2 v2.0.4 // indirect
 	github.com/ipfs/boxo v0.8.0 // indirect
@@ -108,8 +111,10 @@ require (
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
 	github.com/tklauser/numcpus v0.6.1 // indirect
 	github.com/whyrusleeping/tar-utils v0.0.0-20201201191210-20a61371de5b // indirect
+	gitlab.com/distributed_lab/figure/v3 v3.1.2 // indirect
 	gitlab.com/distributed_lab/lorem v0.2.0 // indirect
 	gitlab.com/distributed_lab/running v0.0.0-20200706131153-4af0e83eb96c // indirect
+	gitlab.com/tokene/go-sdk v0.1.1 // indirect
 	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa // indirect
 	golang.org/x/mod v0.14.0 // indirect

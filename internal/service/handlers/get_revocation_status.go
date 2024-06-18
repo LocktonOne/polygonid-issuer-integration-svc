@@ -8,7 +8,7 @@ import (
 	"gitlab.com/distributed_lab/ape/problems"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/converter"
-	isuer_sender "gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/issuer-sender"
+	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/issuer-sender"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/requests"
 	"net/http"
 	"strings"
@@ -23,7 +23,7 @@ func GetRevocationStatus(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	code, response, err := isuer_sender.GetCredentialRevocationStatus(r, request.Did, request.Nonce)
+	code, response, err := issuer_sender.GetCredentialRevocationStatus(r, request.Did, request.Nonce)
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to get credential revocation status")
 		ape.RenderErr(w, &jsonapi.ErrorObject{

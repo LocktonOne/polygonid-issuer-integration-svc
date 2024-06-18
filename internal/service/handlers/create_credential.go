@@ -6,7 +6,7 @@ import (
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers"
-	isuer_sender "gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/issuer-sender"
+	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/helpers/issuer-sender"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/requests"
 	"gitlab.com/tokene/polygonid-issuer-integration/internal/service/types"
 	"gitlab.com/tokene/polygonid-issuer-integration/resources"
@@ -41,7 +41,7 @@ func CreateCredential(w http.ResponseWriter, r *http.Request) {
 		issuerRequest.Expiration = &expiration
 	}
 
-	code, credential, err := isuer_sender.CreateCredential(r, request.Did, issuerRequest)
+	code, credential, err := issuer_sender.CreateCredential(r, request.Did, issuerRequest)
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to create credential")
 		ape.RenderErr(w, &jsonapi.ErrorObject{
